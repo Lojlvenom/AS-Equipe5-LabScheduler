@@ -1,4 +1,4 @@
-# from database import client as cl
+from api.lab.database import client as cl
 
 class LabService():
 
@@ -8,5 +8,5 @@ class LabService():
             'numberOfComputers': numberOfComputers,
         }
 
-        # doc_ref = cl.collection('labs').add(data)
+        doc_ref = cl.collection('labs').add(data)
         return { "message": "Ok", "result": data }, 200
