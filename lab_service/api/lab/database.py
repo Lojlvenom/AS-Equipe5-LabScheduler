@@ -26,7 +26,7 @@ class Database():
 db = Database()
 client = firestore.client()
 
-client.collection('labs').add({
-    'name': "LAB01",
-    'numberOfComputers': 15,
-})
+# client.collection('labs').add({
+#     'name': "LAB01",
+#     'numberOfComputers': 15,
+# })
