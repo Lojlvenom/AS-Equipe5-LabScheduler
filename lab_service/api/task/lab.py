@@ -10,8 +10,9 @@ class taskLab(Resource):
        pass
 
     def get(self):
-
-        return { "message": "Error", "result": "GET method not implemented" }, 500
+        lab = LabService()
+        result = lab.listAllLab()
+        return result
 
     def put(self):
 
@@ -28,7 +29,6 @@ class taskLab(Resource):
         del lab
 
         return result
-        return { "message": "Error", "result": "POST method not implemented" }, 500
 
     def delete(self):
         return { "message": "Error", "result": "DELETE method not implemented" }, 500
