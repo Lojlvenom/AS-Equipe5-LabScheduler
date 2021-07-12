@@ -29,15 +29,15 @@ class Notification(Resource):
         body = api.payload
         print(body)
         if('reservation_hash' not in body):
-            response_json = json.dumps({
+            response_json = {
                 "message":"invalid json"
-            })
+            }
             return response_json, 403
         else:
             to_publish_json = json.dumps(body)
-            response_json = json.dumps({
+            response_json = {
                 "message":"notification sent"
-            })
+            }
 
             rb.publish(routing_key='notification_queue', body=to_publish_json)
             return response_json,200
