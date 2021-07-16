@@ -1,19 +1,16 @@
-from api.lab.database import client as cl
+from api.model.lab import Lab
+from api.lab.database import db
 
 class LabService():
 
     def addLab(self, name, numberOfComputers):
-        data = {
-            'name': name,
-            'numberOfComputers': numberOfComputers,
-        }
-
-        doc_ref = cl.collection('labs').add(data)
-        return { "message": "Ok", "result": data }, 200
+        lab = Lab(name,numberOfComputers)
+        db.add(lab)
+        return { "message": "Ok", "result": lab.toDict() }, 200
 
     def listAllLab(self):
-        docs = cl.collection('labs').stream()
+        labs = db.listAll()
         result = []
-        for doc in docs:
-            result.append(u'{}: {}'.format(doc.id, doc.to_dict()))
-        return result
+        for lab in labs:
+            result.append(lab.toDict())
+        return result, 200
