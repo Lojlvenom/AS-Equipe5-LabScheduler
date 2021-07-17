@@ -16,10 +16,11 @@ class Database():
     def add(self,data):
         self.list.append(data)
 
+    def delete(self, data):
+        for i in range(len(self.list)):
+            if self.list[i].nome == data:
+                del(self.list[i])
+                break
+
 
 db = Database()
-
-# client.collection('labs').add({
-#     'name': "LAB01",
-#     'numberOfComputers': 15,
-# })

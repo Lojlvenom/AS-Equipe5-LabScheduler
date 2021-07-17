@@ -8,6 +8,10 @@ class LabService():
         db.add(lab)
         return { "message": "Ok", "result": lab.toDict() }, 200
 
+    def removeLab(self, name):
+        db.delete(name)
+        return '', 204
+
     def listAllLab(self):
         labs = db.listAll()
         result = []
