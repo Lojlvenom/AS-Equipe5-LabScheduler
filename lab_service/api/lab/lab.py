@@ -18,3 +18,8 @@ class LabService():
         for lab in labs:
             result.append(lab.toDict())
         return result, 200
+
+    def listLab(sels, name):
+        lab = db.listBy(name)
+        result = lab.toDict()
+        return result, 200

@@ -9,13 +9,16 @@ class taskLab(Resource):
     def __init__(self):
        pass
 
-    def put(self):
-
-        return { "message": "Error", "result": "PUT method not implemented" }, 500
+    def get(self, name):
+        lab = LabService()
+        result = lab.listLab(name)
+        del lab
+        return result
 
     def delete(self, name):
         lab = LabService()
         result = lab.removeLab(name)
+        del lab
         return result
 
 class taskLabList(Resource):
@@ -26,6 +29,7 @@ class taskLabList(Resource):
     def get(self):
         lab = LabService()
         result = lab.listAllLab()
+        del lab
         return result
 
     def post(self):

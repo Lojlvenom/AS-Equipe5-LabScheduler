@@ -22,5 +22,11 @@ class Database():
                 del(self.list[i])
                 break
 
+    def listBy(self, data):
+        for i in range(len(self.list)):
+            if self.list[i].nome == data:
+                return self.list[i]
+
+
 
 db = Database()
