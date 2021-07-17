@@ -12,10 +12,12 @@ class Database():
 
         self.booking_list.append(booking)
 
-    def remove_booking(self, booking):
+    def remove_booking(self, ticket_id):
 
-        
-        self.booking_list.remove(booking)
+        for i in range(len(self.booking_list)):
+            if self.booking_list[i].ticket_id == ticket_id:
+                del(self.booking_list[i])
+                break
 
    # def search_booking(self,booking):
 
