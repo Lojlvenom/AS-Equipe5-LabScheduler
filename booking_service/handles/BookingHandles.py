@@ -1,36 +1,58 @@
 import sys
+
+from flask import g, request
+from flask_restful import Resource
+
 import error.errors as error
-import database.database as db
+from database.database import db
+from models.booking import Booking
+import json
 
 
-class Register(Resource):
-    @staticmethod
-    def post():
+class BookingList(Resource):
+    def __init__(self):
+        pass
+   
+    
+    def post(self):
 
-        try:
+
+        #try:
             # get 
-            username, labname, date, shift = (
-                request.json.get("username").strip(),
-                request.json.get("labname").strip(),
-                request.json.get("date").strip(),
-                request.json.get("shift").strip()
-            )
+        date, shift, email, lab_name = (
+            request.json.get("date").strip(),
+            request.json.get("shift").strip(),
+            request.json.get("email").strip(),
+            request.json.get("lab_name").strip()
+        )
 
-            except Exception as why:
+            #except Exception as why:
 
             # Check if Booking information is None
-            if username is None or labname is None or date is None or shift is None:
-                return error.INVALID_INPUT_422
+            # if date is None or shift is None or email is None or lab_name is None:
+            #     return error.INVALID_INPUT_422
 
-            # Get booking if its free
-            booking = db.filterby(labname=labname, date=date, shift=shift).first()
+        booking = Booking(date, shift, email, lab_name)
 
-            # Check booking if its free
-            if booking is not None:
-                return error.ALREADY_EXIST
+        db.add_booking(booking)
 
-            booking = Booking(ticket_id=ticket_id, date=date, shift=shift)
+        return booking.toDict(),200
 
-            db.add_booking(booking)
+    def get(self):
+        bookings = db.list_booking_all()
+        results = []
 
-            return {"status": "registration completed."}
+        for booking in bookings:
+            results.append(booking.toDict())
+        
+        return results, 200
+
+class Booking(Resource):
+    def __init__(self):
+        pass
+
+    def delete(self, ticket_id):
+
+        db.remove_booking(ticket_id)
+
+        return '', 204
