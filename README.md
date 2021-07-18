@@ -5,6 +5,7 @@
 João Lucas Farias Camilo - 2019008160
 Guilherme de Sousa Peixoto - 2019003074
 Rebeca Cancelli Archer Pinto - 2019003181
+Keven Lucas Paiva de Paula  - 2019003083
 
 
 
