@@ -2,8 +2,8 @@ from api.models.User import User
 
 class Database():    
     def __init__(self):
-        adm = User("adm","adm@email.com","adm123")
-        self.user_list = [adm]
+        
+        self.user_list = []
 
     def add_user(self,data):
         self.user_list.append(data)
