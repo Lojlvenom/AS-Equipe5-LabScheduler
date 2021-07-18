@@ -27,3 +27,32 @@ Decorator - O decorator é amplamente utilizado na definição das rotas present
 Factory - O padrão factory é utilizado na criação das filas do sistema de messageria presente no serviço de notificação, com isso é possivel criar várias instâncias do tipo fila dentro do projeto para a comunicação de diferentes módulos.
 
 ## Manual de instalação 
+1. Instalar pacotes nescessários
+```bash
+sudo apt-get install rabbitmq-server python3 python3-venv moreutils
+
+```
+2. Habilitar o serviço de messageria(rabbitmq).
+```bash
+sudo service rabbitmq-server start
+
+```
+3. Criar um ambiente virtual usando o python3 e ativar esse ambiente
+```bash
+python3 -m venv nome_do_env
+source nome_do_env/bin/activate
+
+```
+
+4. Com o ambiente ativado, instalar todas as dependências nescessárias utilizando o pip localizados no arquivo requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+4. Executar o arquivo run.sh
+
+```bash
+sudo chmdod a+x run.sh
+./run.sh
+```
+
