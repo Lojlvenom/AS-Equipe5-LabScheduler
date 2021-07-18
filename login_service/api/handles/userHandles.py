@@ -2,7 +2,7 @@ import logging
 
 from flask import g, request
 from flask_restful import Resource
-from api.conf.auth import auth,refresh_jwt
+from api.conf.auth import auth,refresh_jwt,jwt
 
 import api.error.errors as error
 from api.models.User import User
@@ -16,8 +16,8 @@ class Register(Resource):
         try:
             username, email, password = (
                 request.json.get("username").strip(),
-                request.json.get("password").strip(),
                 request.json.get("email").strip(),
+                request.json.get("password").strip(),
             )
         except Exception as why:
             logging.info("password or email is wrong. " + str(why))
@@ -64,4 +64,3 @@ class login(Resource):
             "acess_token": access_token.decode(),
             "refresh_token": refresh_token.decode(),
         }
-

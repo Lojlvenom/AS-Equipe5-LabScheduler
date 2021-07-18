@@ -14,7 +14,6 @@ class User():
             # Return admin flag.
             return token
 
-
     # Generates a new access token from refresh token.
     @staticmethod
     @auth.verify_token

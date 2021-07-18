@@ -7,9 +7,6 @@ class Database():
 
     def add_user(self,data):
         self.user_list.append(data)
-
-    def listAll(self):
-        return self.user_list
         
     #interface de busca
     def filter_user_by(self,filtro,pesquisa):
@@ -29,7 +26,7 @@ class Database():
         for i in range(len(self.user_list)):
             
             if self.user_list[i].email == l_email and self.user_list[i].password == l_password:
-                
+
                 return self.user_list[i]
         
 db = Database()
