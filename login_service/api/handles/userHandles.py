@@ -4,6 +4,7 @@ from flask import g, request
 from flask_restful import Resource
 from api.conf.auth import auth,refresh_jwt
 
+import api.error.errors as error
 from api.models.User import User
 from api.database.database import db
 
@@ -20,12 +21,13 @@ class Register(Resource):
             )
         except Exception as why:
             logging.info("password or email is wrong. " + str(why))
+            return error.INVALID_INPUT_422
         
         if username is None or email is None or password is None:
-            return "ERROR",422
+            return error.INVALID_INPUT_422
         
         if db.filter_user_by("email",email):
-            return "ERROR"
+            return error.ALREADY_EXIST
         
         new_user=User(username,email,password)
         
@@ -43,16 +45,16 @@ class login(Resource):
                 request.json.get("email").strip(),
                 request.json.get("password").strip() 
             }
-        except Exception as why:
-            return "ERROR1",422
+        except Exception:
+            return error.INVALID_INPUT_422
         
         if email is None or password is None:
-            return "ERROR2",422
+            return error.INVALID_INPUT_422
         
         user = db.login(email,password)
                 
         if user is None:
-            return "ERROR3",422
+            return error.UNAUTHORIZED
         
         access_token = user.generate_auth_token()
         
@@ -62,4 +64,4 @@ class login(Resource):
             "acess_token": access_token.decode(),
             "refresh_token": refresh_token.decode(),
         }
-        
+

@@ -12,4 +12,4 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
     #DEBUG is SET to TRUE. CHANGE FOR PROD
-    app.run(port=5006,host='localhost',use_reloader=True)
+    app.run(port=5050,host='localhost',use_reloader=True)
