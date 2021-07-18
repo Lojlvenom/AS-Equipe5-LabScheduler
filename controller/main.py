@@ -74,7 +74,7 @@ class Login(Resource):
 
 @api.route('/booking')
 class BookingService(Resource):
-    @auth.login_required
+    
     def get(self):
         req = requests.get(URL_BOOKING)
 
@@ -82,7 +82,7 @@ class BookingService(Resource):
 
         return json_req,200
 
-    @auth.login_required
+    
     def post(self):
         body = request.get_json(force=True)
 
@@ -93,7 +93,7 @@ class BookingService(Resource):
 
 @api.route('/booking/<ticket_id>')
 class BookingDeleteService(Resource):
-    @auth.login_required
+    
     def delete(self, ticket_id):
         
         req = requests.delete(url=URL_BOOKING +"/"+ ticket_id)
