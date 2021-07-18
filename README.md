@@ -2,10 +2,10 @@
  Ifam labs scheduling system.
 
 ## Integrantes
-João Lucas Farias Camilo - 2019008160
-Guilherme de Sousa Peixoto - 2019003074
-Rebeca Cancelli Archer Pinto - 2019003181
-Keven Lucas Paiva de Paula  - 2019003083
+João Lucas Farias Camilo - 2019008160  
+Guilherme de Sousa Peixoto - 2019003074  
+Rebeca Cancelli Archer Pinto - 2019003181  
+Keven Lucas Paiva de Paula  - 2019003083  
 
 
 
@@ -14,11 +14,27 @@ Atualmente o processo de reserva dos labortáios do IFAM, baseando-se na realida
 
 ## Arquitetura e soluções aplicadas
 
+<p align="center">
+    <img width="50%" src="https://user-images.githubusercontent.com/72761456/126085063-b7f6fe0e-521a-47fa-be74-a23254d0e81d.png" />
+</p>
+  
 ## Descrição e justificativa de tecnologias
 
+Flask-RESTful é uma extensão do Flask que adiciona suporte para a construção rápida de APIs REST. É uma abstração leve que funciona com seus ORM / bibliotecas existentes. 
+Para que todos os serviços se comuniquem com mais facilidade e usado esta tecnologia, trocando informações por meio de pacotes json.
 
 ## Funcionalidades Implementadas
-### Serviço de notificação
+
+### Serviço de Login
+Feito pelo integrante Keven Lucas Paiva de Paula, este serviço é responsável por realizar o cadastro, login e autenticação do usuário no sistema.
+
+### Serviço de Laboratórios
+Feito pelo integrante Guilherme de Sousa Peixoto, este serviço é responsável por cadastrar, listar e deletar os laboratórios. 
+
+### Serviço de Reserva dos Laboratórios (Booking)
+Feito pela integrante Rebeca Cancelli Archer Pinto, este serviço é responsável por fazer a reserva dos laboratórios para o usuário, verificando a disponibilidade da data e turno do laboratório desejado. Ainda, faz
+
+### Serviço de Notificação
 Feito pelo integrante João Lucas Farias Camilo, esta funcionalidade é responsável por notificar via e-mail qualquer evento relacionado a uma reserva de laboratório.
 
 ## Padrões de projeto presentes
