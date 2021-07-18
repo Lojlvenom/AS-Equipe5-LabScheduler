@@ -6,8 +6,12 @@ from flask_restful import Resource
 import error.errors as error
 from database.database import db
 
-from models.test import Booking
+from models.booking import Booking
 import json
+
+import requests
+
+URL = 'http://localhost:5000/notification'
 
 
 class BookingList(Resource):
@@ -21,25 +25,42 @@ class BookingList(Resource):
        # try:
 
             # get 
-        date, shift, email, lab_name = (
+        date, shift, email, lab_name, title, obs = (
             request.json.get("date").strip(),
             request.json.get("shift").strip(),
             request.json.get("email").strip(),
-            request.json.get("lab_name").strip()
+            request.json.get("lab_name").strip(),
+            request.json.get("title").strip(),
+            request.json.get("obs").strip()
         )
-
+        
+        
             # except Exception as why:
 
                 #Check if Booking information is None
                 # if date is None or shift is None or email is None or lab_name is None:
                 #     return error.INVALID_INPUT_422
+        
+        if db.check_booking(date,shift,lab_name):
+            return error.ALREADY_EXIST
+        
+        booking = Booking(date, shift, email, lab_name,title,obs)
+        db.add_booking(booking)
 
-        test= Booking(date, shift, email, lab_name)
-       # booking = Booking("1", "noy", "e@", "namw")
+        # Chamar Notify
+        PARAMS = {
+            "reservation_hash": booking.ticket_id,
+            "title": booking.title,
+            "spaces": booking.lab_name,
+            "date_time": booking.date + " - " + booking.shift,
+            "email_list": [booking.email],
+            "obs": booking.obs
+            }
+        
+        result = requests.post(url=URL, json=PARAMS)
 
-        db.add_booking(test)
-
-        return test.toDict(),200
+        return {"booking": booking.toDict(),
+                "notification": result.json()},200
 
     def get(self):
         bookings = db.list_booking_all()
