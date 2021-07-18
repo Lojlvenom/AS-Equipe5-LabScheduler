@@ -17,6 +17,7 @@ def callback(ch,method,propreties,body):
 
 def send_email(content):
     reciver_list = []
+    sender_name = "IFAM NOTIFICATION SERVICE"
     sender = "notificationServiceProjetoASW@gmail.com"
     password = "notification@@@@"
     subject = "Detalhe de reserva"
@@ -29,8 +30,8 @@ def send_email(content):
         body = "Detalhes da reserva - Local: {} - Data/hora: {} - OBS:{}".format(spaces,datetime,obs)
         # header
        # header
-        message = f"""From:{sender}
-        To: {receiver}
+        message = f"""From:{sender_name}|{sender}
+        To: {receiver} \n
         Subject: {subject}\n
         {body}
         """
