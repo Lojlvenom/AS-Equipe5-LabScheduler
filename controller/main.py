@@ -83,15 +83,16 @@ class BookingService(Resource):
 
         result = requests.post(url=URL_BOOKING, json = body)
 
-        return {result},200
+        return result.json()
 
 
 @api.route('/booking/<ticket_id>')
 class BookingDeleteService(Resource):
     def delete(self, ticket_id):
+        
         req = requests.delete(url=URL_BOOKING +"/"+ ticket_id)
         
-        return req,204
+        return req.text,req.status_code
 
 
 
