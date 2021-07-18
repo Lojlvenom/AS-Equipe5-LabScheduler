@@ -1,5 +1,5 @@
 import sys
-
+from flask_httpauth import HTTPTokenAuth
 from flask.globals import request
 sys.path.append('../server')
 from flask import Flask,request
@@ -9,12 +9,16 @@ from rabbit_server import rabbit_instance as rb
 import json
 import requests
 
+
+auth = HTTPTokenAuth("Bearer")
+
 app, api = server.app, server.api 
 
 
 notification_queue = 'notification_queue'
 URL_AUTH_REGISTER="http://localhost:5006/auth/register"
 URL_AUTH_LOGIN="http://localhost:5006/auth/login"
+URL_BOOKING="http://localhost:5008/api/booking"
 
 rb.create_queue(notification_queue)
 
@@ -67,6 +71,37 @@ class Login(Resource):
         
         return result.json(),200
   
+
+@api.route('/booking')
+class BookingService(Resource):
+    
+    def get(self):
+        req = requests.get(URL_BOOKING)
+
+        json_req = req.json()
+
+        return json_req,200
+
+    
+    def post(self):
+        body = request.get_json(force=True)
+
+        result = requests.post(url=URL_BOOKING, json = body)
+
+        return result.json()
+
+
+@api.route('/booking/<ticket_id>')
+class BookingDeleteService(Resource):
+    
+    def delete(self, ticket_id):
+        
+        req = requests.delete(url=URL_BOOKING +"/"+ ticket_id)
+        
+        return req.text,req.status_code
+
+
+
 server.run()
 
 
