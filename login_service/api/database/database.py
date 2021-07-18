@@ -1,4 +1,4 @@
-from models.User import User
+from api.models.User import User
 
 class Database():    
     def __init__(self):
@@ -13,18 +13,23 @@ class Database():
         
     #interface de busca
     def filter_user_by(self,filtro,pesquisa):
-        
+ 
         if filtro == "name":
-            if any(User for User in self.user_list if User.name == pesquisa):
-                return User
-            #else return error mensage
-        
+            for i in range(len(self.user_list)):
+                if self.user_list[i].name == pesquisa:
+                    return self.user_list[i]  
+                    
         if filtro == "email":
-            if any(User for User in self.user_list if User.email == pesquisa):
-                return User
-            #else return error mensage
+            for i in range(len(self.user_list)):
+                if self.user_list[i].email == pesquisa:
+                    return self.user_list[i] 
     
     def login(self, l_email,l_password):
-        if any(User for User in self.user_list if User.email == l_email) and any(User for User in self.user_list if User.password == l_password):
-            return True
-        else: return False
+        
+        for i in range(len(self.user_list)):
+            
+            if self.user_list[i].email == l_email and self.user_list[i].password == l_password:
+                
+                return self.user_list[i]
+        
+db = Database()
