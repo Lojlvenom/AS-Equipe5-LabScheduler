@@ -52,7 +52,7 @@ pip install -r requirements.txt
 4. Executar o arquivo run.sh
 
 ```bash
-sudo chmdod a+x run.sh
+sudo chmdo a+x run.sh
 ./run.sh
 ```
 
