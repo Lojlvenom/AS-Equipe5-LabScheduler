@@ -117,7 +117,7 @@ class LabService(Resource):
         return req.text,req.status_code
 
 @api.route('/lab')
-class BookingService(Resource):
+class LabListService(Resource):
     
     def get(self):
         req = requests.get(URL_LAB)
