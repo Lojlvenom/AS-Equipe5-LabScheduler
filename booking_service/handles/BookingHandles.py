@@ -1,36 +1,89 @@
 import sys
+
+from flask import g, request
+from flask_restful import Resource
+
 import error.errors as error
-import database.database as db
+from database.database import db
+
+from models.booking import Booking
+import json
+
+import requests
+
+URL = 'http://localhost:5000/notification'
 
 
-class Register(Resource):
-    @staticmethod
-    def post():
+class BookingList(Resource):
+    def __init__(self):
+        pass
+   
+    
+    def post(self):
 
-        try:
+
+       # try:
+
             # get 
-            username, labname, date, shift = (
-                request.json.get("username").strip(),
-                request.json.get("labname").strip(),
-                request.json.get("date").strip(),
-                request.json.get("shift").strip()
-            )
+        date, shift, email, lab_name, title, obs = (
+            request.json.get("date").strip(),
+            request.json.get("shift").strip(),
+            request.json.get("email").strip(),
+            request.json.get("lab_name").strip(),
+            request.json.get("title").strip(),
+            request.json.get("obs").strip()
+        )
+        
+        
+            # except Exception as why:
 
-            except Exception as why:
+                #Check if Booking information is None
+                # if date is None or shift is None or email is None or lab_name is None:
+                #     return error.INVALID_INPUT_422
+        
+        if db.check_booking(date,shift,lab_name):
+            return error.ALREADY_EXIST
+        
+        booking = Booking(date, shift, email, lab_name,title,obs)
+        db.add_booking(booking)
 
-            # Check if Booking information is None
-            if username is None or labname is None or date is None or shift is None:
-                return error.INVALID_INPUT_422
+        # Chamar Notify
+        PARAMS = {
+            "reservation_hash": booking.ticket_id,
+            "title": booking.title,
+            "spaces": booking.lab_name,
+            "date_time": booking.date + " - " + booking.shift,
+            "email_list": [booking.email],
+            "obs": booking.obs
+            }
+        
+        result = requests.post(url=URL, json=PARAMS)
 
-            # Get booking if its free
-            booking = db.filterby(labname=labname, date=date, shift=shift).first()
+        return {"booking": booking.toDict(),
+                "notification": result.json()},200
 
-            # Check booking if its free
-            if booking is not None:
-                return error.ALREADY_EXIST
+    def get(self):
+        bookings = db.list_booking_all()
+        results = []
 
-            booking = Booking(ticket_id=ticket_id, date=date, shift=shift)
+        for booking in bookings:
+            results.append(booking.toDict())
+        
+        return results, 200
 
-            db.add_booking(booking)
+class BookingDelList(Resource):
+    def __init__(self):
+        pass
 
-            return {"status": "registration completed."}
+    def delete(self, data):
+        
+        db.remove_booking(data)
+
+        return '', 204
+    
+    def get(self, data):
+        by = db.list_booking_by(data)
+        result = []
+        for bookings in by:
+            result.append(bookings.toDict())
+        return result,200
