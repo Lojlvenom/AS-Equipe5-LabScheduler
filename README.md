@@ -20,6 +20,7 @@ Atualmente o processo de reserva dos laboratórios do IFAM, baseando-se na reali
   
 ## Descrição e justificativa de tecnologias
 
+
 Como a solução implementada se tratava de microserviços que deveriam se comunicar, foram contruidas uma API para cada serviço. Para realizar essa comunicação foi decidido utilizar JSON como padrão, assim foram utilizadas as seguintes tecnologias. 
 
 Flask-RESTful é uma extensão do Flask que adiciona suporte para a construção rápida de APIs REST. É uma abstração leve que funciona com seus ORM / bibliotecas existentes. Foi utilizado para que todos os serviços se comuniquem com mais facilidade e usado esta tecnologia, construindo pacotes json.
@@ -33,11 +34,14 @@ Mensageria usando a lib RabbitMQ o serviço de notificação orientado a eventos
 ### Serviço de Login/Usuários
 Feito pelo integrante Keven Lucas Paiva de Paula, este serviço é responsável por realizar o cadastro, login e autenticação de usuários no sistema.
 
+
 ### Serviço de Laboratórios
 Feito pelo integrante Guilherme de Sousa Peixoto, este serviço é responsável por cadastrar, listar e deletar os laboratórios. 
 
 ### Serviço de Reserva dos Laboratórios (Booking)
+
 Feito pela integrante Rebeca Cancelli Archer Pinto, este serviço é responsável por fazer a reserva dos laboratórios para o usuário, verificando a disponibilidade da data e turno do laboratório desejado, a listagem e a remoção das reservas.
+
 
 ### Serviço de Notificação
 Feito pelo integrante João Lucas Farias Camilo, esta funcionalidade é responsável por notificar via e-mail qualquer evento relacionado a uma reserva de laboratório.
