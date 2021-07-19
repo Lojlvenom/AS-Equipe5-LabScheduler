@@ -10,7 +10,7 @@ Keven Lucas Paiva de Paula  - 2019003083
 
 
 ## Descrição do Problema
-Atualmente o processo de reserva dos labortáios do IFAM, baseando-se na realidade do campus CMZL, ainda é um processo manual e com baixa disponibilidade de acesso, com base nessa realidade densenvolvemos um sisitema para realizar reservas de laboratórios e espaços, com notificação.
+Atualmente o processo de reserva dos laboratórios do IFAM, baseando-se na realidade do campus CMZL, ainda é um processo manual e com baixa disponibilidade de acesso, com base nessa realidade densenvolvemos um sisitema para realizar reservas de laboratórios e espaços, com notificação.
 
 ## Arquitetura e soluções aplicadas
 
