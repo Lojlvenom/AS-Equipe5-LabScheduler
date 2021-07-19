@@ -19,6 +19,7 @@ notification_queue = 'notification_queue'
 URL_AUTH_REGISTER="http://localhost:5006/auth/register"
 URL_AUTH_LOGIN="http://localhost:5006/auth/login"
 URL_BOOKING="http://localhost:5008/api/booking"
+URL_LAB="http://localhost:5005/api/lab"
 
 rb.create_queue(notification_queue)
 
@@ -100,6 +101,38 @@ class BookingDeleteService(Resource):
         
         return req.text,req.status_code
 
+
+@api.route('/lab/<lab_name>')
+class LabService(Resource):
+    
+    def get(self, lab_name):
+        req = requests.get(url=URL_LAB +"/"+ lab_name)
+
+        return req.json()
+    
+    def delete(self, lab_name):
+        
+        req = requests.delete(url=URL_BOOKING +"/"+ lab_name)
+        
+        return req.text,req.status_code
+
+@api.route('/lab')
+class BookingService(Resource):
+    
+    def get(self):
+        req = requests.get(URL_LAB)
+
+        json_req = req.json()
+
+        return json_req,200
+
+    
+    def post(self):
+        body = request.get_json(force=True)
+
+        result = requests.post(url=URL_LAB, json = body)
+
+        return result.json()
 
 
 server.run()
