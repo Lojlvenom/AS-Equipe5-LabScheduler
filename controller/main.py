@@ -104,7 +104,7 @@ class BookingDeleteService(Resource):
 
 @api.route('/lab/<lab_name>')
 class LabService(Resource):
-    
+    @api.routes
     def get(self, lab_name):
         req = requests.get(url=URL_LAB +"/"+ lab_name)
 
@@ -118,7 +118,7 @@ class LabService(Resource):
 
 @api.route('/lab')
 class LabListService(Resource):
-    
+    @api.doc(responses={ 200: 'OK'},)
     def get(self):
         req = requests.get(URL_LAB)
 
@@ -126,7 +126,11 @@ class LabListService(Resource):
 
         return json_req,200
 
-    
+    @api.doc(
+        params = {
+            "name":"labs's name",
+            "numberOfComputers":"number of computers in the lab"
+    },)
     def post(self):
         body = request.get_json(force=True)
 
